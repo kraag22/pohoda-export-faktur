@@ -20,6 +20,7 @@ $pohoda = new Pohoda('01508512');
 $invoice = new Invoice(324342);
 
 // cena fakutry s DPH
+$price = 1000;
 $invoice->setPriceWithoutVAT($price);
 $invoice->setPriceOnlyVAT($price*0.21);
 $invoice->withVAT(true);
