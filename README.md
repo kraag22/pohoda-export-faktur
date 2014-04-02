@@ -62,6 +62,7 @@ $invoice->setPurchaserIdentity([
 ```php
 
 if ($invoice->isValid()) {
+    // pokud je faktura validni, pridame ji do exportu
     $pohoda->setInvoice($invoice);
 }
 else {
