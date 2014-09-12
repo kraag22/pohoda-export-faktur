@@ -25,6 +25,10 @@ class Invoice {
     public $priceTotal = 0;
     public $priceWithoutVAT = 0;
     public $priceOnlyVAT;
+    /** Zakazka
+     * @var string
+     */
+    public $contract;
 
     public $myIdentity = [];
 
@@ -140,6 +144,10 @@ class Invoice {
     public function setNote($value) {
         $this->note = $value;
     }
+    public function setContract($value) {
+        $this->validateItem('contract', $value, 10);
+        $this->contract = $value;
+    }
     public function setSymbolicNumber($value) {
         $value = $this->removeSpaces($value);
         $this->validateItem('symbolic number', $value, 20, true);
@@ -247,6 +255,11 @@ class Invoice {
         }
 
         $header->addChild("inv:intNote", 'Tento doklad byl vytvořen importem přes XML.');
+
+        if (isset($this->contract)) {
+            $contract = $header->addChild("inv:contract");
+            $contract->addChild('typ:ids', $this->contract, Pohoda::$NS_TYPE);
+        }
 
         $header->addChild("inv:symConst", $this->symbolicNumber);
 
